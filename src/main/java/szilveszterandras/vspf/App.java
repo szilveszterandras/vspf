@@ -1,5 +1,7 @@
 package szilveszterandras.vspf;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,11 @@ public class App
         server.addEventListener("request", SocketObject.class, new DataListener<SocketObject>() {
             @Override
             public void onData(SocketIOClient client, SocketObject data, AckRequest ackRequest) {
-                // broadcast messages to all clients
-                // server.getBroadcastOperations().sendEvent("chatevent", data);
-            	logger.info("Message recieved on WS");
+            	try {
+					HandlerFactory.createHandler(data, client).run();
+				} catch (IOException e) {
+					logger.error("Unable to create request handler", e);
+				}
             }
         });
 
