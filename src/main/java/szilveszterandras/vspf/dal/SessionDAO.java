@@ -10,6 +10,7 @@ public class SessionDAO {
 	private FindByDAO<Session, String> fbtdao = new FindByDAO<Session, String>(Session.class, "token");
 	private InsertDAO<Session> idao = new InsertDAO<Session>(); 
 	private UpdateDAO<Session> udao = new UpdateDAO<Session>();
+	private DeleteDAO<Session> ddao = new DeleteDAO<Session>(Session.class);
 	
 	public Session findByUserId(Long uid) {
 		return fbuiddao.findBy(uid);	
@@ -22,5 +23,8 @@ public class SessionDAO {
 	}
 	public void updateSession(Session s) {
 		udao.updateObject(s);
+	}
+	public void deleteSession(Long id) {
+		ddao.deleteObject(id);
 	}
 }
