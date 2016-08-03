@@ -12,10 +12,10 @@ import szilveszterandras.vspf.Notifier;
 import szilveszterandras.vspf.dal.DAOFactory;
 import szilveszterandras.vspf.dal.User;
 
-public class UsersStreamHandler extends AuthorizedHandler<Object> {
-	public static final Logger logger = LoggerFactory.getLogger(UsersStreamHandler.class);
+public class StreamUsersHandler extends AuthorizedHandler<Object> {
+	public static final Logger logger = LoggerFactory.getLogger(StreamUsersHandler.class);
 
-	public UsersStreamHandler() {
+	public StreamUsersHandler() {
 		super(Object.class);
 		
 		Notifier.getInstance().subscribe("user/persist", new Notifiable<User>() {

@@ -6,13 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import szilveszterandras.vspf.handler.DeleteUserHandler;
+import szilveszterandras.vspf.handler.InsertPhotoHandler;
 import szilveszterandras.vspf.handler.InsertUserHandler;
 import szilveszterandras.vspf.handler.LoginHandler;
 import szilveszterandras.vspf.handler.LogoutHandler;
 import szilveszterandras.vspf.handler.SocketHandler;
+import szilveszterandras.vspf.handler.StreamPhotosHandler;
+import szilveszterandras.vspf.handler.StreamUsersHandler;
 import szilveszterandras.vspf.handler.UnsubscribeHandler;
 import szilveszterandras.vspf.handler.UpdateUserHandler;
-import szilveszterandras.vspf.handler.UsersStreamHandler;
 import szilveszterandras.vspf.handler.ValidateHandler;
 
 public abstract class HandlerFactory {
@@ -39,8 +41,14 @@ public abstract class HandlerFactory {
 			h = new DeleteUserHandler();
 			break;
 		case "users/stream":
-			h = new UsersStreamHandler();
-			break;			
+			h = new StreamUsersHandler();
+			break;
+		case "photo/new":
+			h = new InsertPhotoHandler();
+			break;
+		case "photos/stream":
+			h = new StreamPhotosHandler();
+			break;
 		case "unsubscribe":
 			h = new UnsubscribeHandler();
 			break;

@@ -13,4 +13,8 @@ public class HibernateDAOFactory extends DAOFactory {
 	public UserDAO getUserDAO() {
 		return new UserDAO();
 	}
+	@Override
+	public PhotoDAO getPhotoDAO() {
+		return new PhotoDAO();
+	}
 }

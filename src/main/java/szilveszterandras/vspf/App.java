@@ -1,6 +1,8 @@
 package szilveszterandras.vspf;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +16,23 @@ import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.google.gson.JsonParseException;
 
+import szilveszterandras.vspf.fileserver.HttpServer;
+
 /**
  * Hello world!
  *
  */
 public class App {
+	public static Properties config = new Properties(); 
 	public static final String HOST = "localhost";
 	public static final int PORT = 9092;
 	public static final Logger logger = LoggerFactory.getLogger(App.class);
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
+		// Load properties
+		config.load(new FileInputStream("config.properties"));
+		
+		// Setup socket.io server on specified port
 		Configuration config = new Configuration();
 		config.setHostname(HOST);
 		config.setPort(PORT);
@@ -70,8 +79,10 @@ public class App {
 				}
 			}
 		});
-
+		
 		server.start();
+		// Setup file server
+		new HttpServer().run();
 
 		Thread.sleep(Integer.MAX_VALUE);
 
