@@ -11,10 +11,12 @@ import com.google.gson.Gson;
 
 import szilveszterandras.vspf.dal.DAOFactory;
 import szilveszterandras.vspf.dal.Session;
+import szilveszterandras.vspf.dal.User;
 import szilveszterandras.vspf.dal.UserPassword;
 import szilveszterandras.vspf.payload.LoginRequest;
 import szilveszterandras.vspf.payload.LoginResponse;
 import szilveszterandras.vspf.payload.StatusResponse;
+import szilveszterandras.vspf.payload.UserFilter;
 
 public class LoginHandler extends SimpleHandler<LoginRequest> {
 	public static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
@@ -28,11 +30,12 @@ public class LoginHandler extends SimpleHandler<LoginRequest> {
 		UserPassword up = DAOFactory.getInstance().getUserPasswordDAO().findByUsername(this.payload.getUsername());
 		if (up != null && up.getPassword().equals(this.payload.getPassword())) {
 			Session s = createSession(up.getId());
+			User u = DAOFactory.getInstance().getUserDAO().getUser(up.getId());
 			// Set current connection to authenticated
 			this.connection.authenticate(s);
-			sendResponse(true, s.getToken());
+			sendResponse(true, s.getToken(), new UserFilter(u));
 		} else {
-			this.sendResponse(false, null);
+			this.sendResponse(false, null, null);
 		}
 		return this;
 	}
@@ -47,7 +50,7 @@ public class LoginHandler extends SimpleHandler<LoginRequest> {
 		Date now = new Date();
 		Calendar expires = Calendar.getInstance();
 		expires.setTime(now);
-		expires.add(Calendar.SECOND, 10);
+		expires.add(Calendar.HOUR, 1);
 
 		Session s = new Session(token, userId, now, expires.getTime());
 		DAOFactory.getInstance().getSessionDAO().insertSession(s);
@@ -66,8 +69,8 @@ public class LoginHandler extends SimpleHandler<LoginRequest> {
 //		DAOFactory.getInstance().getSessionDAO().updateSession(s);
 //	}
 
-	private void sendResponse(Boolean isValid, String token) {
+	private void sendResponse(Boolean isValid, String token, UserFilter user) {
 		this.sendEvent((new Gson())
-				.toJson(isValid ? new LoginResponse(token) : new StatusResponse("Login failed, invalid username or password")));
+				.toJson(isValid ? new LoginResponse(token, user) : new StatusResponse("Login failed, invalid username or password")));
 	}
 }

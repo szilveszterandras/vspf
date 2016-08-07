@@ -12,6 +12,7 @@ import szilveszterandras.vspf.handler.LoginHandler;
 import szilveszterandras.vspf.handler.LogoutHandler;
 import szilveszterandras.vspf.handler.SocketHandler;
 import szilveszterandras.vspf.handler.StreamPhotosHandler;
+import szilveszterandras.vspf.handler.StreamTagsHandler;
 import szilveszterandras.vspf.handler.StreamUsersHandler;
 import szilveszterandras.vspf.handler.UnsubscribeHandler;
 import szilveszterandras.vspf.handler.UpdateUserHandler;
@@ -48,6 +49,9 @@ public abstract class HandlerFactory {
 			break;
 		case "photos/stream":
 			h = new StreamPhotosHandler();
+			break;
+		case "tags/stream":
+			h = new StreamTagsHandler();
 			break;
 		case "unsubscribe":
 			h = new UnsubscribeHandler();

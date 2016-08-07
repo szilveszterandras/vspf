@@ -136,6 +136,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 		InterfaceHttpData data = (new HttpPostRequestDecoder(request)).next();
 		if (data == null || data.getHttpDataType() != HttpDataType.FileUpload) {
 			sendError(ctx, FORBIDDEN);
+			return;
 		}
 		UUID imageHash = UUID.randomUUID();
 		try {

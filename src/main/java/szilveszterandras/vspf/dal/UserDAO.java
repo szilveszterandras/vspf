@@ -9,6 +9,7 @@ public class UserDAO {
 	public static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
 	private GetAllDAO<User> gadao = new GetAllDAO<>(User.class);
 	private GetOneDAO<User> godao = new GetOneDAO<>(User.class);
+	private FindByDAO<User, String> fbundao = new FindByDAO<User, String>(User.class, "username");
 	private InsertDAO<User> idao = new InsertDAO<User>(); 
 	private UpdateDAO<User> udao = new UpdateDAO<User>();
 	private DeleteDAO<User> ddao = new DeleteDAO<>(User.class);
@@ -18,6 +19,9 @@ public class UserDAO {
 	}
 	public User getUser(Long id) {
 		return godao.getObject(id);
+	}
+	public User findByUsername(String username) {
+		return fbundao.findBy(username);
 	}
 	public void insertUser(User u) {
 		idao.insertObject(u);

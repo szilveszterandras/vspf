@@ -16,7 +16,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.CharsetUtil;
 
 public class HttpServer {
-	static final int PORT = Integer.parseInt(System.getProperty("port", "8080"));
+	static final int PORT = Integer.parseInt(System.getProperty("port", "9093"));
 
 	public HttpServer() {
 	}

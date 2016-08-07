@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import szilveszterandras.vspf.Notifiable;
+import szilveszterandras.vspf.Notifier;
 import szilveszterandras.vspf.SocketObject;
 import szilveszterandras.vspf.UserConnection;
 import szilveszterandras.vspf.payload.StatusResponse;
@@ -20,8 +22,9 @@ public abstract class SimpleHandler<T> implements SocketHandler {
 	protected T payload;
 	protected String topic;
 	protected String requestId;
-	protected UserConnection connection;
 	protected String channel;
+	protected UserConnection connection;
+	private List<String> subscriptions = new ArrayList<String>();
 		
 	public SimpleHandler(Class<T> payloadType) {
 		this.payloadType = payloadType;
@@ -53,7 +56,11 @@ public abstract class SimpleHandler<T> implements SocketHandler {
 	}
 	
 	@Override
-	public void destroy() {}
+	public void destroy() {
+		for (String key : this.subscriptions) {
+		    Notifier.getInstance().unsubscribe(key, this.hashCode());
+		}
+	}
 
 	@Override
 	public UUID getConnectionId() {
@@ -74,5 +81,9 @@ public abstract class SimpleHandler<T> implements SocketHandler {
 		List<S> l = new ArrayList<S>();
 		l.add(u);
 		return l;
+	}
+	protected void subscribe(String s, Notifiable<?> n) {
+		Notifier.getInstance().subscribe(s, n, this.hashCode());
+	    this.subscriptions.add(s);
 	}
 }
