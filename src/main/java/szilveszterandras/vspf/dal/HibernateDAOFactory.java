@@ -21,4 +21,8 @@ public class HibernateDAOFactory extends DAOFactory {
 	public TagDAO getTagDAO() {
 		return new TagDAO();
 	}
+	@Override
+	public StarDAO getStarDAO() {
+		return new StarDAO();
+	}
 }

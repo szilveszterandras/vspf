@@ -1,5 +1,6 @@
 package szilveszterandras.vspf.dal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,13 +17,14 @@ public class FilterByDAO<T, S> {
 
 	public List<T> filterBy(S param) {
 		em = HibernateUtilJpa.getEntityManager();
-		List<T> l = null;
+		List<T> l = new ArrayList<T>();
 		try {
 			em.getTransaction().begin();
 			l = em.createQuery("from " + itemClass.getName() + " where " + field + " = :param", itemClass)
 					.setParameter("param", param).getResultList();
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			em.getTransaction().rollback();
 		} finally {
 			em.close();

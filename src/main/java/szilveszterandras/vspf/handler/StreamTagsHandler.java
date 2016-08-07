@@ -12,21 +12,17 @@ import szilveszterandras.vspf.dal.TagCount;
 public class StreamTagsHandler extends AuthorizedHandler<Object> {
 	public StreamTagsHandler() {
 		super(Object.class);
-		
-		this.subscribe("tag/persist", new Notifiable<Tag>() {
+		// No need to separate tag deletion, count will return with 0,
+		// UI will remove the item
+		Notifiable<Tag> onTagUpdate = new Notifiable<Tag>() {
 			@Override
 			public void onEvent(Tag data) {
 				TagCount t = DAOFactory.getInstance().getTagDAO().getTagCount(data.getName());
 				sendEvent((new Gson()).toJson(wrap(t)));
 			}
-		});		
-		this.subscribe("tag/remove", new Notifiable<Long>() {
-			@Override
-			public void onEvent(Long id) {
-				// TODO Implement
-				logger.warn("Removing tags not handled");
-			}
-		});
+		};
+		this.subscribe("tag/persist", onTagUpdate);		
+		this.subscribe("tag/remove", onTagUpdate);
 	}
 
 	@Override

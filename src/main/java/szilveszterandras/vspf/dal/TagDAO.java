@@ -11,10 +11,15 @@ public class TagDAO {
 	public static final Logger logger = LoggerFactory.getLogger(TagDAO.class);
 	private EntityManager em;
 
-	private FilterByDAO<Tag, Long> fbpiddao = new FilterByDAO<>(Tag.class, "photoId");
+	private GetAllDAO<Tag> gadao = new GetAllDAO<>(Tag.class);
+	private FilterByDAO<Tag, Long> fbpiddao = new FilterByDAO<Tag, Long>(Tag.class, "photoId");
 	private InsertDAO<Tag> idao = new InsertDAO<Tag>();
 	private DeleteDAO<Tag> ddao = new DeleteDAO<Tag>(Tag.class);
 
+	public List<Tag> getAllTags() {
+		return gadao.getAll();
+	}
+	
 	public List<TagCount> getAllTagCounts() {
 		em = HibernateUtilJpa.getEntityManager();
 		List<TagCount> l = null;
@@ -38,8 +43,8 @@ public class TagDAO {
 		try {
 			em.getTransaction().begin();
 			t = em.createQuery(
-					"select new szilveszterandras.vspf.dal.TagCount(tag.name, count(tag)) from Tag tag where tag.name=:param group by tag.name",
-					TagCount.class).setParameter(":param", tag).getSingleResult();
+					"select new szilveszterandras.vspf.dal.TagCount(tag.name, count(tag)) from Tag tag where tag.name = :param group by tag.name",
+					TagCount.class).setParameter("param", tag).getSingleResult();
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			em.getTransaction().rollback();

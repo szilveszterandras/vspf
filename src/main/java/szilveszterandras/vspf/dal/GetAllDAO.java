@@ -1,5 +1,6 @@
 package szilveszterandras.vspf.dal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ public class GetAllDAO<T> {
 
 	public List<T> getAll() {
 		em = HibernateUtilJpa.getEntityManager();
-		List<T> s = null;
+		List<T> s = new ArrayList<T>();
 		try {
 			em.getTransaction().begin();
 			s = em.createQuery("from " + itemClass.getName(), itemClass).getResultList();

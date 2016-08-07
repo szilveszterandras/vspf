@@ -12,7 +12,6 @@ import javax.persistence.PostUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.slf4j.LoggerFactory;
 
 import szilveszterandras.vspf.Notifier;
 
@@ -100,8 +99,6 @@ public class Photo {
 
 	@PostRemove
 	public void PostRemove() {
-		LoggerFactory.getLogger("a").info("Post remove " + this.id);
-		Notifier.getInstance().publish("photo/remove", this.id);
+		Notifier.getInstance().publish("photo/remove", this);
 	}
-
 }

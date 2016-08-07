@@ -5,13 +5,19 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import szilveszterandras.vspf.handler.DeleteStarHandler;
 import szilveszterandras.vspf.handler.DeleteUserHandler;
 import szilveszterandras.vspf.handler.InsertPhotoHandler;
+import szilveszterandras.vspf.handler.InsertStarHandler;
 import szilveszterandras.vspf.handler.InsertUserHandler;
 import szilveszterandras.vspf.handler.LoginHandler;
 import szilveszterandras.vspf.handler.LogoutHandler;
+import szilveszterandras.vspf.handler.SearchPhotosHandler;
+import szilveszterandras.vspf.handler.SearchTagsHandler;
+import szilveszterandras.vspf.handler.SearchUsersHandler;
 import szilveszterandras.vspf.handler.SocketHandler;
 import szilveszterandras.vspf.handler.StreamPhotosHandler;
+import szilveszterandras.vspf.handler.StreamStarsHandler;
 import szilveszterandras.vspf.handler.StreamTagsHandler;
 import szilveszterandras.vspf.handler.StreamUsersHandler;
 import szilveszterandras.vspf.handler.UnsubscribeHandler;
@@ -47,11 +53,35 @@ public abstract class HandlerFactory {
 		case "photo/new":
 			h = new InsertPhotoHandler();
 			break;
+		case "photo/update":
+			h = new UpdatePhotoHandler();
+			break;
+		case "photo/delete":
+			h = new DeletePhotoHandler();
+			break;
 		case "photos/stream":
 			h = new StreamPhotosHandler();
 			break;
 		case "tags/stream":
 			h = new StreamTagsHandler();
+			break;
+		case "star/new":
+			h = new InsertStarHandler();
+			break;
+		case "star/delete":
+			h = new DeleteStarHandler();
+			break;
+		case "stars/stream":
+			h = new StreamStarsHandler();
+			break;
+		case "search/users":
+			h = new SearchUsersHandler();
+			break;
+		case "search/tags":
+			h = new SearchTagsHandler();
+			break;
+		case "search/photos":
+			h = new SearchPhotosHandler();
 			break;
 		case "unsubscribe":
 			h = new UnsubscribeHandler();

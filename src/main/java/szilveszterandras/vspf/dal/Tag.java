@@ -8,7 +8,6 @@ import javax.persistence.PostRemove;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.slf4j.LoggerFactory;
 
 import szilveszterandras.vspf.Notifier;
 
@@ -22,6 +21,7 @@ public class Tag {
 	private Long photoId;
 	private String name;
 	
+	public Tag() {};
 	public Tag(String name, Long photoId) {
 		this.name = name;
 		this.photoId = photoId;
@@ -59,7 +59,6 @@ public class Tag {
 
 	@PostRemove
 	public void PostRemove() {
-		LoggerFactory.getLogger("a").info("Post remove " + this.id);
-		Notifier.getInstance().publish("tag/remove", this.id);
+		Notifier.getInstance().publish("tag/remove", this);
 	}
 }

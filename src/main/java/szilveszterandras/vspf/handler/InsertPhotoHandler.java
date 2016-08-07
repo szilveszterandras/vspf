@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 import szilveszterandras.vspf.App;
@@ -17,7 +20,7 @@ import szilveszterandras.vspf.payload.PhotoFilter;
 import szilveszterandras.vspf.payload.StatusResponse;
 
 public class InsertPhotoHandler extends AuthorizedHandler<PhotoFilter> {
-
+	public static final Logger logger = LoggerFactory.getLogger(InsertPhotoHandler.class);
 	public InsertPhotoHandler() {
 		super(PhotoFilter.class);
 	}

@@ -17,6 +17,14 @@ public class PhotoFilter {
 	private Date uploadedAt;
 	private List<String> tags;
 	
+	public PhotoFilter(Photo p) {
+		this.id = p.getId();
+		this.title = p.getTitle();
+		this.description = p.getDescription();
+		this.hash = p.getHash();
+		this.uploadedAt = p.getUploadedAt();
+	}
+
 	public PhotoFilter(Photo p, String username, List<Tag> tags) {
 		this.id = p.getId();
 		this.username = username;
