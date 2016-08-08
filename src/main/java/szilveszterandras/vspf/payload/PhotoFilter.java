@@ -23,6 +23,7 @@ public class PhotoFilter {
 		this.description = p.getDescription();
 		this.hash = p.getHash();
 		this.uploadedAt = p.getUploadedAt();
+		this.path = "http://localhost:9093/" + p.getPath();
 	}
 
 	public PhotoFilter(Photo p, String username, List<Tag> tags) {

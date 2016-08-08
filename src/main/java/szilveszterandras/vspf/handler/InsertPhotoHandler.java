@@ -44,7 +44,7 @@ public class InsertPhotoHandler extends AuthorizedHandler<PhotoFilter> {
 				p.setUploadedAt(new Date());
 				p.setPath(path);
 
-				this.savePhotoToDisk(hash, username);
+				this.savePhotoToDisk(hash, p, username);
 				DAOFactory.getInstance().getPhotoDAO().insertPhoto(p);
 				for (String s : payload.getTags()) {
 					DAOFactory.getInstance().getTagDAO().insertTag(new Tag(s, p.getId()));
@@ -60,9 +60,9 @@ public class InsertPhotoHandler extends AuthorizedHandler<PhotoFilter> {
 		return this;
 	}
 
-	private void savePhotoToDisk(UUID hash, String username) throws IOException {
+	private void savePhotoToDisk(UUID hash, Photo p, String username) throws IOException {
 		byte[] contents = UploadBuffer.getInstance().pull(hash);
-		String fullPath = App.config.getProperty("imageCache") + "/" + this.payload.getPath();
+		String fullPath = App.config.getProperty("imageCache") + "/" + p.getPath();
 		logger.debug("Saving file to path: " + fullPath);
 
 		// Create folder if it doesn't exist

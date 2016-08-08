@@ -1,12 +1,16 @@
 package szilveszterandras.vspf.dal;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PhotoDAO {
 	public static final Logger logger = LoggerFactory.getLogger(PhotoDAO.class);
+	private EntityManager em;
 
 	private GetAllDAO<Photo> gadao = new GetAllDAO<>(Photo.class);
 	private GetOneDAO<Photo> godao = new GetOneDAO<>(Photo.class);
@@ -36,5 +40,21 @@ public class PhotoDAO {
 	}
 	public void deletePhoto(Long id) {
 		ddao.deleteObject(id);
+	}
+	public List<Photo> filterByTag(String tag) {
+		em = HibernateUtilJpa.getEntityManager();
+		List<Photo> l = new ArrayList<Photo>();
+		try {
+			em.getTransaction().begin();
+			l = em.createQuery("select p from Photo as p, Tag as t where p.id = t.photoId and t.name = :param", Photo.class)
+					.setParameter("param", tag).getResultList();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return l;
 	}
 }
