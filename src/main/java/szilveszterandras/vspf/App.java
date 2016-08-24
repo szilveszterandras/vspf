@@ -1,7 +1,7 @@
 package szilveszterandras.vspf;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -24,13 +24,14 @@ import szilveszterandras.vspf.fileserver.HttpServer;
  */
 public class App {
 	public static Properties config = new Properties(); 
-	public static final String HOST = "localhost";
+	public static final String HOST = "0.0.0.0";
 	public static final int PORT = 9092;
 	public static final Logger logger = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// Load properties
-		config.load(new FileInputStream("config.properties"));
+		InputStream s = App.class.getClassLoader().getResourceAsStream("config.properties");
+		config.load(s);
 		
 		// Setup socket.io server on specified port
 		Configuration config = new Configuration();

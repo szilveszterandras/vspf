@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import szilveszterandras.vspf.App;
 import szilveszterandras.vspf.dal.Photo;
 import szilveszterandras.vspf.dal.Tag;
 
@@ -23,7 +24,7 @@ public class PhotoFilter {
 		this.description = p.getDescription();
 		this.hash = p.getHash();
 		this.uploadedAt = p.getUploadedAt();
-		this.path = "http://localhost:9093/" + p.getPath();
+		this.path = "http://" + App.config.getProperty("serverIp") + ":9093/" + p.getPath();
 	}
 
 	public PhotoFilter(Photo p, String username, List<Tag> tags) {
@@ -38,7 +39,7 @@ public class PhotoFilter {
 			this.tags.add(t.getName());
 		}
 		
-		this.path = "http://localhost:9093/" + p.getPath();
+		this.path = "http://" + App.config.getProperty("serverIp") + ":9093/" + p.getPath();
 	}
 
 	public Long getId() {

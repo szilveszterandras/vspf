@@ -1,5 +1,6 @@
 package szilveszterandras.vspf.payload;
 
+import szilveszterandras.vspf.App;
 import szilveszterandras.vspf.dal.User;
 
 public class UserFilter {
@@ -14,7 +15,7 @@ public class UserFilter {
 		this.name = u.getName();
 		this.username = u.getUsername();
 		this.email = u.getEmail();
-		this.avatar = "http://localhost:9093/" + u.getAvatar();
+		this.avatar = "http://" + App.config.getProperty("serverIp") + ":9093/" + u.getAvatar();
 	}
 
 	public Long getId() {
