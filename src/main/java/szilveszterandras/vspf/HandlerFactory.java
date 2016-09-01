@@ -5,9 +5,11 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import szilveszterandras.vspf.handler.DeleteReviewHandler;
 import szilveszterandras.vspf.handler.DeleteStarHandler;
 import szilveszterandras.vspf.handler.DeleteUserHandler;
 import szilveszterandras.vspf.handler.InsertPhotoHandler;
+import szilveszterandras.vspf.handler.InsertReviewHandler;
 import szilveszterandras.vspf.handler.InsertStarHandler;
 import szilveszterandras.vspf.handler.InsertUserHandler;
 import szilveszterandras.vspf.handler.LoginHandler;
@@ -18,10 +20,12 @@ import szilveszterandras.vspf.handler.SearchUsersHandler;
 import szilveszterandras.vspf.handler.SocketHandler;
 import szilveszterandras.vspf.handler.StreamByTagHandler;
 import szilveszterandras.vspf.handler.StreamPhotosHandler;
+import szilveszterandras.vspf.handler.StreamReviewsHandler;
 import szilveszterandras.vspf.handler.StreamStarsHandler;
 import szilveszterandras.vspf.handler.StreamTagsHandler;
 import szilveszterandras.vspf.handler.StreamUsersHandler;
 import szilveszterandras.vspf.handler.UnsubscribeHandler;
+import szilveszterandras.vspf.handler.UpdateReviewHandler;
 import szilveszterandras.vspf.handler.UpdateUserHandler;
 import szilveszterandras.vspf.handler.ValidateHandler;
 
@@ -86,6 +90,18 @@ public abstract class HandlerFactory {
 			break;
 		case "search/photos":
 			h = new SearchPhotosHandler();
+			break;
+		case "reviews/stream":
+			h = new StreamReviewsHandler();
+			break;
+		case "review/new":
+			h = new InsertReviewHandler();
+			break;
+		case "review/update":
+			h = new UpdateReviewHandler();
+			break;
+		case "review/delete":
+			h = new DeleteReviewHandler();
 			break;
 		case "unsubscribe":
 			h = new UnsubscribeHandler();

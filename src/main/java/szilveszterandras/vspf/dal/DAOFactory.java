@@ -7,6 +7,7 @@ public abstract class DAOFactory {
 	public abstract PhotoDAO getPhotoDAO();
 	public abstract TagDAO getTagDAO();
 	public abstract StarDAO getStarDAO();
+	public abstract ReviewDAO getReviewDAO();
 	
 	public static DAOFactory getInstance() {
 		return new HibernateDAOFactory();
