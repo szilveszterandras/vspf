@@ -9,14 +9,16 @@ import szilveszterandras.vspf.Notifiable;
 import szilveszterandras.vspf.TimestampGson;
 import szilveszterandras.vspf.dal.DAOFactory;
 import szilveszterandras.vspf.dal.Photo;
+import szilveszterandras.vspf.dal.Review;
 import szilveszterandras.vspf.dal.Tag;
+import szilveszterandras.vspf.dal.User;
 import szilveszterandras.vspf.payload.Hash;
 import szilveszterandras.vspf.payload.PhotoFilter;
 
 public class StreamSinglePhotoHandler extends SimpleHandler<Hash> {
 	public static final Logger logger = LoggerFactory.getLogger(StreamSinglePhotoHandler.class);
 	private Long photoId;
-	private String username;
+	private User user;
 
 	public StreamSinglePhotoHandler() {
 		super(Hash.class);
@@ -26,7 +28,7 @@ public class StreamSinglePhotoHandler extends SimpleHandler<Hash> {
 	public SocketHandler run() {
 		Photo p = DAOFactory.getInstance().getPhotoDAO().findByHash(payload.getHash());
 		this.photoId = p.getId();
-		this.username = DAOFactory.getInstance().getUserDAO().getUser(p.getUserId()).getUsername();
+		this.user= DAOFactory.getInstance().getUserDAO().getUser(p.getUserId());
 		
 		this.sendEvent((new TimestampGson()).toJson(getPhotoFilter(p)));
 		return this;
@@ -54,6 +56,7 @@ public class StreamSinglePhotoHandler extends SimpleHandler<Hash> {
 	}
 	private PhotoFilter getPhotoFilter(Photo p) {
 		List<Tag> tags = DAOFactory.getInstance().getTagDAO().filterByPhotoId(p.getId());
-		return new PhotoFilter(p, this.username, tags);
+		List<Review> reviews = DAOFactory.getInstance().getReviewDAO().filterByPhotoId(p.getId());
+		return new PhotoFilter(p, this.user, tags, reviews);
 	}
 }

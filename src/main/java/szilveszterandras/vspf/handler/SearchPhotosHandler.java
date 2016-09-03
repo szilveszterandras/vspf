@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import szilveszterandras.vspf.Notifiable;
 import szilveszterandras.vspf.dal.DAOFactory;
 import szilveszterandras.vspf.dal.Photo;
+import szilveszterandras.vspf.dal.Review;
 import szilveszterandras.vspf.dal.Tag;
 import szilveszterandras.vspf.dal.User;
 import szilveszterandras.vspf.payload.PhotoFilter;
@@ -44,7 +45,8 @@ public class SearchPhotosHandler extends AuthorizedHandler<SearchTerm> {
 	}
 	private PhotoFilter getPhotoFilter(Photo p) {
 		List<Tag> tags = DAOFactory.getInstance().getTagDAO().filterByPhotoId(p.getId());
+		List<Review> reviews = DAOFactory.getInstance().getReviewDAO().filterByPhotoId(p.getId());
 		User u = DAOFactory.getInstance().getUserDAO().getUser(p.getUserId());
-		return new PhotoFilter(p, u.getUsername(), tags);
+		return new PhotoFilter(p, u, tags, reviews);
 	}
 }

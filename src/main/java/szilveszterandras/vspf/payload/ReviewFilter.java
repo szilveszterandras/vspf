@@ -23,6 +23,7 @@ public class ReviewFilter {
 		this.description = r.getDescription();
 		this.hash = p.getHash();
 		this.username = u.getUsername();
+		this.addedAt = r.getAddedAt();
 	}
 	public Long getId() {
 		return id;

@@ -9,6 +9,7 @@ import szilveszterandras.vspf.Notifiable;
 import szilveszterandras.vspf.TimestampGson;
 import szilveszterandras.vspf.dal.DAOFactory;
 import szilveszterandras.vspf.dal.Photo;
+import szilveszterandras.vspf.dal.Review;
 import szilveszterandras.vspf.dal.Tag;
 import szilveszterandras.vspf.dal.User;
 import szilveszterandras.vspf.payload.DeleteResponse;
@@ -70,7 +71,8 @@ public class StreamByTagHandler extends AuthorizedHandler<TagRequest> {
 	private PhotoFilter getPhotoFilter(Photo p) {
 		User u = DAOFactory.getInstance().getUserDAO().getUser(p.getUserId());
 		List<Tag> tags = DAOFactory.getInstance().getTagDAO().filterByPhotoId(p.getId());
-		return new PhotoFilter(p, u.getUsername(), tags);
+		List<Review> reviews = DAOFactory.getInstance().getReviewDAO().filterByPhotoId(p.getId());
+		return new PhotoFilter(p, u, tags, reviews);
 	}
 
 	private List<String> getTagsForPhoto(Photo p) {
