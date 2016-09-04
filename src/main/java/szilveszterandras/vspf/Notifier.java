@@ -43,10 +43,15 @@ public class Notifier {
 	
 	@SuppressWarnings("unchecked")
 	public <T> void publish(String topic, T data) {
+		@SuppressWarnings("rawtypes")
+		List<Subscriber> subs = new ArrayList<Subscriber>(); 
 		for (Subscriber<T> s : this.subscribers) {
 			if (s.topic.equals(topic)) {
-				s.notifiable.onEvent(data);
+				subs.add(s);
 			}
+		}
+		for (Subscriber<T> s : subs) {
+			s.notifiable.onEvent(data);
 		}
 		logger.debug(String.format("Sent notification on topic %s with payload %s", topic, data));
 	}

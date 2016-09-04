@@ -20,6 +20,8 @@ import szilveszterandras.vspf.handler.SearchUsersHandler;
 import szilveszterandras.vspf.handler.SocketHandler;
 import szilveszterandras.vspf.handler.StreamByTagHandler;
 import szilveszterandras.vspf.handler.StreamPhotosHandler;
+import szilveszterandras.vspf.handler.StreamPhotosNewHandler;
+import szilveszterandras.vspf.handler.StreamPhotosStarredHandler;
 import szilveszterandras.vspf.handler.StreamReviewsHandler;
 import szilveszterandras.vspf.handler.StreamStarsHandler;
 import szilveszterandras.vspf.handler.StreamTagsHandler;
@@ -69,6 +71,12 @@ public abstract class HandlerFactory {
 			break;
 		case "photosByTag/stream":
 			h = new StreamByTagHandler();
+			break;
+		case "photos/stream/starred":
+			h = new StreamPhotosStarredHandler();
+			break;
+		case "photos/stream/new":
+			h = new StreamPhotosNewHandler();
 			break;
 		case "tags/stream":
 			h = new StreamTagsHandler();

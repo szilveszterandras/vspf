@@ -57,4 +57,17 @@ public class UserFilter {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			UserFilter u = (UserFilter) obj;
+			return id == u.getId() &&
+				name.equals(u.getName()) &&
+				username.equals(u.getUsername()) &&
+				email.equals(u.getEmail()) &&
+				avatar.equals(u.getAvatar());
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

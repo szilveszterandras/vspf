@@ -10,7 +10,7 @@ public class ReviewFilter {
 	private Long id;
 	private String username;
 	private String hash;
-	private Long rating;
+	private int rating;
 	private String title;
 	private String description;
 	private Date addedAt;
@@ -43,10 +43,10 @@ public class ReviewFilter {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-	public Long getRating() {
+	public int getRating() {
 		return rating;
 	}
-	public void setRating(Long rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 	public String getTitle() {

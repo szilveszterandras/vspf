@@ -8,17 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HibernateUtilJpa {
-	private static EntityManagerFactory entityManagerFctory;
+	private static EntityManagerFactory entityManagerFactory;
 	public static final Logger logger = LoggerFactory.getLogger(HibernateUtilJpa.class);
 	static {
 		try {
-			entityManagerFctory = Persistence.createEntityManagerFactory("vspf.hibernatejpa");
+			entityManagerFactory = Persistence.createEntityManagerFactory("vspf.hibernatejpa");
 		} catch (Exception e) {
 			logger.error("Exception", e);
 		}
 	}
 
 	public static EntityManager getEntityManager() {
-		return entityManagerFctory.createEntityManager();
+		return entityManagerFactory.createEntityManager();
 	}
 }

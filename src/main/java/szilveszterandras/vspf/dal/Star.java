@@ -47,15 +47,12 @@ public class Star {
 		this.photoId = photoId;
 	}
 	
-	// Entity listeners
 	@PostPersist
-	public void PostInsert() {
+	public void PostPersist() {
 		Notifier.getInstance().publish("star/persist", this);
 	}
-
 	@PostRemove
 	public void PostRemove() {
 		Notifier.getInstance().publish("star/remove", this);
 	}
-
 }

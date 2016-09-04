@@ -1,19 +1,26 @@
 package szilveszterandras.vspf.payload;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DeleteResponse {
 	private final Boolean isDeleted = true;
-	private Long id;
+	private List<Long> ids;
 	
 	public DeleteResponse(Long id) {
-		this.id = id;
+		this.ids = new ArrayList<Long>();
+		this.ids.add(id);
+	}
+	public DeleteResponse(List<Long> ids) {
+		this.ids = ids;
 	}
 
-	public Long getId() {
-		return id;
+	public List<Long> getIds() {
+		return ids;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
 	}
 	
 	public Boolean getIsDeleted() {

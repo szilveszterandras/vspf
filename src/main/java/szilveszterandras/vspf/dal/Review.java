@@ -25,7 +25,7 @@ public class Review {
 	private Long id;
 	private Long userId;
 	private Long photoId;
-	private Long rating;
+	private int rating;
 	private String title;
 	private String description;
 	@Column(name="addedAt", columnDefinition="DATETIME")
@@ -65,11 +65,11 @@ public class Review {
 		this.photoId = photoId;
 	}
 
-	public Long getRating() {
+	public int getRating() {
 		return rating;
 	}
 
-	public void setRating(Long rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 

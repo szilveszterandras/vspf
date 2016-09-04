@@ -61,7 +61,7 @@ public class App {
 				try {
 					HandlerFactory
 							.createHandler("request", data, ConnectionPool.getInstance().findConnection(client.getSessionId()))
-							.authorize().run();
+							.authorize().run().destroy();
 				} catch (JsonParseException | SecurityException | IOException e) {
 					logger.info("Request handler exception", e);
 				}
