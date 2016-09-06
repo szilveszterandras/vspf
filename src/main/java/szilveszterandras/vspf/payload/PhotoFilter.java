@@ -205,6 +205,7 @@ public class PhotoFilter {
 		}, this.hashCode());
 	}
 	public void destroy() {
+		Notifier.getInstance().unsubscribe("photo/update", this.hashCode());
 		Notifier.getInstance().unsubscribe("user/update", this.hashCode());
 		Notifier.getInstance().unsubscribe("review/persist", this.hashCode());
 		Notifier.getInstance().unsubscribe("review/remove", this.hashCode());

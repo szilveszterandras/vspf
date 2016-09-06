@@ -28,10 +28,10 @@ public class HandlerPool {
 				h.getConnectionId()));	
 	}
 
-	public void destroyHandler(UUID sessionId, String topic) {
+	public void destroyHandler(UUID sessionId, String requestId) {
 		List<SocketHandler> toRemove = new ArrayList<SocketHandler>();
 		for (SocketHandler h : this.handlers) {
-			if (h.getConnectionId().equals(sessionId) && h.getTopic().equals(topic)) {
+			if (h.getConnectionId().equals(sessionId) && h.getRequestId().equals(requestId)) {
 				destroyHandler(h);
 				toRemove.add(h);
 			}

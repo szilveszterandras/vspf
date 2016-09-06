@@ -71,6 +71,10 @@ public abstract class SimpleHandler<T> implements SocketHandler {
 	public String getTopic() {
 		return this.topic;
 	}
+	@Override
+	public String getRequestId() {
+		return this.requestId;
+	}
 
 	protected void sendEvent(String json) {
 		SocketObject out = new SocketObject(this.topic, this.requestId, null, json);

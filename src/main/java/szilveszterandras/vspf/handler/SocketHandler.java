@@ -8,6 +8,7 @@ import szilveszterandras.vspf.UserConnection;
 public interface SocketHandler {
 	public UUID getConnectionId();
 	public String getTopic();
+	public String getRequestId();
 	public SocketHandler init(String channel, SocketObject data, UserConnection connection);
 	public SocketHandler authorize();
 	public SocketHandler run();
